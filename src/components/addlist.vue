@@ -12,13 +12,16 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { tips } from '../api/tips'
+import { useTipsStore } from '../store/tipStore';
+const TipsStore = useTipsStore()
 const city=ref('')
 const UpdataSuggestions = async ()=>{
   const resData = await tips(state.value,city)
-  const newArray = resData.tips.map(item=>{
-    return{value:item.name,address:item.district+item.address}
+  console.log(resData.tips);
+  resData.tips = resData.tips.map(item=>{
+    return{value:item.name,address:item.district+item.address,location:item.location}
   })
-  return newArray
+  return resData.tips
 }
 const state = ref('')
 
@@ -28,8 +31,6 @@ interface LinkItem {
 }
 
 const links = ref<LinkItem[]>([])
-
-
 
 let timeout: ReturnType<typeof setTimeout>
 const querySearchAsync = (queryString: string, cb: (arg: any) => void) => {
@@ -58,17 +59,10 @@ const createFilter = (queryString: string) => {
 }
 
 const handleSelect = (item: Record<string, any>) => {
-  console.log(item)
+  TipsStore.addTips(item.location,item.value,item.address)
+  console.log(TipsStore.tipsList)
 }
-
-onMounted(() => {
-   const data = UpdataSuggestions()
-   data.then((result)=>{
-    console.log(result)
-    links.value=result
-   }).catch((error)=>{
-    console.error(error)
-   })
-   
-})
+const handleInput = async () => {
+  await UpdataSuggestions(); // 确保在输入时更新建议
+}
 </script>
