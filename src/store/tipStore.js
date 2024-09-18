@@ -9,7 +9,6 @@ export const useTipsStore = defineStore('tips',()=>
             location,
             name,
             address,
-            key:Date.now(),
             times:0,
             comment:''
         })
