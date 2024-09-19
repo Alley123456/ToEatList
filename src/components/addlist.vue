@@ -60,7 +60,6 @@ const createFilter = (queryString: string) => {
     )
   }
 }
-
 const handleSelect = (item: Record<string, any>) => {
   TipsStore.addTips(item.location,item.value,item.address)
   state.value=''
