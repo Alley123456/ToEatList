@@ -8,15 +8,17 @@ export const useTipsStore = defineStore('tips',()=>
         tipsList.value.push({
             location,
             name,
-            address,
-            times:0,
-            comment:''
+            address
         })
+    }
+    const delTips=(index)=>{
+        tipsList.value.splice(index,1)
     }
 
     return {
         tipsList,
-        addTips
+        addTips,
+        delTips
     }
 }
 )

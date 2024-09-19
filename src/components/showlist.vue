@@ -28,8 +28,7 @@
   tableData.value = tipsStore.tipsList
   
   const deleteRow = (index: number) => {
-    tipsStore.tipsList.splice(index, 1)
-
+    tipsStore.delTips(index)
   }
   
   
