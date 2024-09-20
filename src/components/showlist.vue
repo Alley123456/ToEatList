@@ -1,8 +1,8 @@
 <template>
-    <el-table :data="tableData" style="width: 100%" max-height="250">
-      <el-table-column prop="name" label="Name" width="200" />
-      <el-table-column prop="address" label="Address" width="600" />
-      <el-table-column fixed="right" label="Operations" min-width="120">
+    <el-table :data="tableData" max-height="500">
+      <el-table-column prop="name" label="Name" width="220" />
+      <el-table-column prop="address" label="Address" width="390" />
+      <el-table-column fixed="right" label="Operations" width="110">
         <template #default="scope">
           <el-button
             link

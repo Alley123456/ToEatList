@@ -1,6 +1,6 @@
 <template>
   <div class="demo-image">
-      <el-image style="width: 600px; height: 600px" :src="imageUrl" :fit="fill" @click="Show"/>
+      <el-image style="width: 550px; height: 550px" :src="imageUrl" :fit="fill" @click="Show"/>
   </div>
 </template>
 
