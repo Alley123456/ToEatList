@@ -7,6 +7,6 @@
 </template>
 
 <script setup>
-import Addlist from './addlist.vue'
-import Showlist from './showlist.vue'
+import Addlist from './AddList.vue'
+import Showlist from './ShowList.vue'
 </script>

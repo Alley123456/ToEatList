@@ -1,6 +1,6 @@
 <script setup>
-import Map from './components/map.vue'
-import List from './components/list.vue'
+import Map from './components/MapFile.vue'
+import List from './components/ListFile.vue'
 </script>
 
 <template>
