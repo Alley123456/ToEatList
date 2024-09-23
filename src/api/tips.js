@@ -7,7 +7,7 @@ export const tips =(keywords)=>{
             keywords,
             city:'成都',
             datatype:'poi',
-            key:'0adbaa0473264eb02b9a12643e6c82f8'
+            key:import.meta.env.VITE_Key
         }
     })
 }

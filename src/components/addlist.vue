@@ -12,16 +12,23 @@
 import { ref } from 'vue'
 import { tips } from '../api/tips'
 import { useTipsStore } from '../store/tipStore';
-import {debounce} from '../utils/debounce'
+import { debounce } from '../utils/debounce'
 const TipsStore = useTipsStore()
-const city=ref('')
+
+
 const UpdataSuggestions = async ()=>{
-  const resData = await tips(state.value)
-  console.log(resData.tips);
-  resData.tips = resData.tips.map(item=>{
+  try{
+  const response = await tips(state.value)
+  const resData = response.data
+  console.log(resData);
+  resData.tips = resData.tips.map((item:{name:string;district:string;address:string;location:string})=>{
     return{value:item.name,address:item.district+item.address,location:item.location}
   })
   return resData.tips
+  }catch(error){
+    console.log('Error fetching tips:',error);
+    
+  }
 }
 const state = ref('')
 
