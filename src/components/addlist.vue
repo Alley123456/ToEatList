@@ -12,31 +12,27 @@ import { ref } from "vue";
 import { tips } from "../api/tips";
 import { useTipsStore } from "../store/tipStore";
 import { debounce } from "../utils/debounce";
+
 const TipsStore = useTipsStore();
 
 const UpdataSuggestions = async () => {
-  try {
-    const response = await tips(state.value);
-    const resData = response.data;
-    console.log(resData);
-    resData.tips = resData.tips.map(
-      (item: {
-        name: string;
-        district: string;
-        address: string;
-        location: string;
-      }) => {
-        return {
-          value: item.name,
-          address: item.district + item.address,
-          location: item.location,
-        };
-      },
-    );
-    return resData.tips;
-  } catch (error) {
-    console.log("Error fetching tips:", error);
-  }
+  const resData = await tips(state.value);
+  console.log(resData.tips);
+  resData.tips = resData.tips.map(
+    (item: {
+      name: string;
+      district: string;
+      address: string;
+      location: string;
+    }) => {
+      return {
+        value: item.name,
+        address: item.district + item.address,
+        location: item.location,
+      };
+    },
+  );
+  return resData.tips;
 };
 const state = ref("");
 
@@ -49,28 +45,28 @@ const links = ref<LinkItem[]>([]);
 
 let timeout: ReturnType<typeof setTimeout>;
 
-const querySearchAsync = (
-  queryString: string,
-  cb: (results: any[]) => void,
-) => {
-  const data = UpdataSuggestions();
-  data
-    .then((result) => {
-      console.log(result);
-      links.value = result;
-      cb(result);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  const results = queryString
-    ? links.value.filter(createFilter(queryString))
-    : links.value;
-  clearTimeout(timeout);
-  timeout = setTimeout(() => {
-    cb(results);
-  }, 3000 * Math.random());
-};
+const querySearchAsync = debounce(
+  (queryString: string, cb: (results: any[]) => void) => {
+    const data = UpdataSuggestions();
+    data
+      .then((result) => {
+        console.log(result);
+        links.value = result;
+        cb(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    const results = queryString
+      ? links.value.filter(createFilter(queryString))
+      : links.value;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      cb(results);
+    }, 3000 * Math.random());
+  },
+  500,
+);
 
 const debounceQuerySearch = debounce(querySearchAsync, 500);
 const createFilter = (queryString: string) => {
