@@ -1,12 +1,12 @@
 <template>
   <!-- calc(100% - 20px)  -->
   <div style="width: 110%">
-    <el-header> <Addlist></Addlist></el-header>
-    <el-main> <Showlist></Showlist></el-main>
+    <el-header> <AddList></AddList></el-header>
+    <el-main> <ShowList></ShowList></el-main>
   </div>
 </template>
 
 <script setup>
-import Addlist from "./AddList.vue";
-import Showlist from "./ShowList.vue";
+import AddList from "./AddList.vue";
+import ShowList from "./ShowList.vue";
 </script>
