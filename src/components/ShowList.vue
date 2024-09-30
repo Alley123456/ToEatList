@@ -22,10 +22,9 @@ import { ref } from "vue";
 import { useTipsStore } from "../store/tipStore";
 
 const tipsStore = useTipsStore();
-const tableData = ref([]);
-tableData.value = tipsStore.tipsList;
+const tableData = ref(tipsStore.tipsList);
 
 const deleteRow = (index: number) => {
-  tipsStore.delTips(index);
+  tipsStore.deleteTips(index);
 };
 </script>
