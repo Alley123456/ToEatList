@@ -13,7 +13,3 @@ import List from "./components/ListFile.vue";
     </el-container>
   </div>
 </template>
-
-<!-- <style  scoped>
- 
-</style> -->
